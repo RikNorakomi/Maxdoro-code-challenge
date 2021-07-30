@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="row_item_margin_vertical">12dp</dimen>
+    <dimen name="no_result_size">24sp</dimen>
+    <dimen name="row_item_margin_horizontal">12dp</dimen>
+    <dimen name="separator_text_size">24dp</dimen>
+</resources>

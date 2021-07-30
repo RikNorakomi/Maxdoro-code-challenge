@@ -72,6 +72,7 @@ class ArtObjectViewHolder(
             circularProgressDrawable.strokeWidth = 5f
             circularProgressDrawable.centerRadius = 30f
             circularProgressDrawable.start()
+            
             return ArtObjectViewHolder(view, circularProgressDrawable)
         }
     }

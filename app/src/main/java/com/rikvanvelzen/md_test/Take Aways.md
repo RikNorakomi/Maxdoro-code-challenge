@@ -17,12 +17,11 @@ RijksCollectionViewModel
 within one class. This makes it easier to troubleshoot & debug when something goes wrong. 
 - loadDetailedInformation() starts a coroutine using viewModelScope which survives configuration changes
 
-TODO MutableStateFlow?!
-
 RijksMuseumRepositoryTest
 - TestCoroutineDispatcher is used making it possible to .runBlockingTests()
 This way the tests become deterministic (meaning always return the same results) and won't suffer from race conditions
 
 
+- TODO MutableStateFlow?!
 - TODO: Exception Handling
 - TODO: Ui State Handling

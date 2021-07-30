@@ -12,13 +12,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-// TODO break up viewmodel in ArtObjectDetailsViewModel & OverviewViewModel?
 class RijksCollectionViewModel(private val repository: RijksMuseumRepository) : ViewModel() {
 
     private var currentQueryValue: String? = null
     private var currentSearchResult: Flow<PagingData<UiModel>>? = null
 
-    // TODO use MutableStateFlow & add state to return object
     private val _detailInformation: MutableLiveData<ArtObjectDetails> = MutableLiveData()
     val detailInformation: LiveData<ArtObjectDetails> = _detailInformation
 
@@ -67,12 +65,6 @@ class RijksCollectionViewModel(private val repository: RijksMuseumRepository) : 
             _detailInformation.value = artObjectDetails
         }
     }
-}
-
-sealed class DetailedInfoUiState {
-    data class Success(val details: ArtObjectDetails): DetailedInfoUiState()
-    data class Loading(val details: ArtObjectDetails? = null): DetailedInfoUiState()
-    data class Error(val exception: Throwable): DetailedInfoUiState()
 }
 
 sealed class UiModel {

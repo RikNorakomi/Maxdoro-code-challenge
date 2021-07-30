@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rikvanvelzen.md_test.R
 import com.rikvanvelzen.md_test.databinding.LoadStateFooterViewItemBinding
 
-class ReposLoadStateViewHolder(
+class OverviewLoadStateViewHolder(
     private val binding: LoadStateFooterViewItemBinding,
     retry: () -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -27,11 +27,11 @@ class ReposLoadStateViewHolder(
     }
 
     companion object {
-        fun create(parent: ViewGroup, retry: () -> Unit): ReposLoadStateViewHolder {
+        fun create(parent: ViewGroup, retry: () -> Unit): OverviewLoadStateViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.load_state_footer_view_item, parent, false)
             val binding = LoadStateFooterViewItemBinding.bind(view)
-            return ReposLoadStateViewHolder(binding, retry)
+            return OverviewLoadStateViewHolder(binding, retry)
         }
     }
 }

@@ -61,7 +61,7 @@ class OverviewFragment : Fragment() {
 
     private fun initAdapter() {
         binding.list.adapter = adapter.withLoadStateFooter(
-            footer = ReposLoadStateAdapter { adapter.retry() }
+            footer = OverviewLoadStateAdapter { adapter.retry() }
         )
 
         adapter.addLoadStateListener { loadState ->

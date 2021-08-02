@@ -31,8 +31,12 @@ class RijksMuseumRepository(private val service: RijksMuseumService,
         // IO thread makes the function main-safe
         // Additionally: as best practice don't hard code dispatchers but inject them via constructor
         return withContext(ioDispatcher) {
-            // TODO error handling
-            Result.Success(service.fetchCollectionDetails(objectNumber).artObjectDetails)
+            try {
+                Result.Success(service.fetchCollectionDetails(objectNumber).artObjectDetails)
+            } catch (e: Exception) {
+                // For the sake of simplicity for this code challenge we'll just return
+                Result.Error(e)
+            }
         }
     }
 

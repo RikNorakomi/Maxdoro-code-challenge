@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class FakeRijksMuseumRepository : IRijksMuseumRepository {
 
-    var artObjectDetailsMap: LinkedHashMap<String, ArtObjectDetails> = LinkedHashMap()
+    private var artObjectDetailsMap: LinkedHashMap<String, ArtObjectDetails> = LinkedHashMap()
     private var shouldReturnError = false
 
     fun setArtObjectDetails(artObjectDetails: ArtObjectDetails){

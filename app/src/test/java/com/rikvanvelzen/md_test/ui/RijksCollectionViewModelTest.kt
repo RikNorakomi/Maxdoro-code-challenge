@@ -1,14 +1,14 @@
 package com.rikvanvelzen.md_test.ui
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.rikvanvelzen.md_test.common.MainCoroutineRule
 import com.rikvanvelzen.md_test.common.getOrAwaitValue
-import com.rikvanvelzen.md_test.common.whenever
 import com.rikvanvelzen.md_test.data.FakeRijksMuseumRepository
+import com.rikvanvelzen.md_test.data.Result
 import com.rikvanvelzen.md_test.model.ArtObjectDetails
 import com.rikvanvelzen.md_test.model.Dating
 import com.rikvanvelzen.md_test.model.ImageDetails
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
@@ -16,15 +16,15 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-//@RunWith(MockitoJUnitRunner::class)
 class RijksCollectionViewModelTest {
 
+    @get:Rule
+    var instantExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
     private lateinit var rijksMuseumRepo: FakeRijksMuseumRepository
-
     private lateinit var viewModel: RijksCollectionViewModel
 
     @Before
@@ -33,43 +33,43 @@ class RijksCollectionViewModelTest {
         viewModel = RijksCollectionViewModel(rijksMuseumRepo)
     }
 
-//    @Test
-//    suspend fun getDetailInformation() {
-//        // Arrange / Given
-//        val objectNumber = "someId"
-//        val artObjectDetails = createArtObjectDetails(objectNumber)
-//        whenever(mockRepository.getArtObjectDetails(objectNumber))
-//            .thenReturn(artObjectDetails)
-//
-//        // Act / When
-//        viewModel.loadDetailedInformation(objectNumber)
-//
-//        // Assert / Then
-//    }
-
-
     @Test
-    fun loadDetailedInformation() {
+    fun loadDetailedInformation_success_detailInfoLiveDataUpdated() {
         // Arrange / Given
         val objectNumber = "someId"
         val artObjectDetails = createArtObjectDetails(objectNumber)
-        runBlocking {
-            whenever(rijksMuseumRepo.getArtObjectDetails(objectNumber))
-                .thenReturn(artObjectDetails)
-            viewModel.loadDetailedInformation(objectNumber)
-        }
+        rijksMuseumRepo.setArtObjectDetails(artObjectDetails)
+
+        // When detail information gets loaded
+        viewModel.loadDetailedInformation(objectNumber)
 
 
+        // assert that detailInformation LiveData is updated with correct info
         val value = viewModel.detailInformation.getOrAwaitValue()
-        // Act / When
-        assertThat(value.getContentIfNotHandled(), `is`(artObjectDetails))
+        assertThat(value.getContentIfNotHandled(), `is`(Result.Success(artObjectDetails)))
     }
 
-    // region helper methods
-    private fun createArtObjectDetails(id: String): ArtObjectDetails {
+    @Test
+    fun loadDetailedInformation_error_detailInfoValueIsError() {
+        // Arrange / Given
+        val objectNumber = "someId"
+        val artObjectDetails = createArtObjectDetails(objectNumber)
+        rijksMuseumRepo.setReturnError(true)
+        rijksMuseumRepo.setArtObjectDetails(artObjectDetails)
+
+        // When detail information gets loaded
+        viewModel.loadDetailedInformation(objectNumber)
+
+
+        // assert that detailInformation LiveData is updated with correct info
+        val value = viewModel.detailInformation.getOrAwaitValue()
+        assertThat(value.getContentIfNotHandled() is Result.Error, `is`(true))
+    }
+
+    private fun createArtObjectDetails(objectNumber: String): ArtObjectDetails {
         return ArtObjectDetails(
-            id,
-            "number",
+            "id",
+            objectNumber,
             "title",
             "subtitle",
             "description",

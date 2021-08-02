@@ -17,8 +17,8 @@ class RijksCollectionViewModel(private val repository: RijksMuseumRepository) : 
     private var currentQueryValue: String? = null
     private var currentSearchResult: Flow<PagingData<UiModel>>? = null
 
-    private val _detailInformation: MutableLiveData<ArtObjectDetails> = MutableLiveData()
-    val detailInformation: LiveData<ArtObjectDetails> = _detailInformation
+    private val _detailInformation: MutableLiveData<Event<ArtObjectDetails>> = MutableLiveData<Event<ArtObjectDetails>>()
+    val detailInformation: LiveData<Event<ArtObjectDetails>> = _detailInformation
 
     fun getListData(queryString: String): Flow<PagingData<UiModel>> {
         val lastResult = currentSearchResult
@@ -62,7 +62,7 @@ class RijksCollectionViewModel(private val repository: RijksMuseumRepository) : 
     fun loadDetailedInformation(objectNumber: String) {
         viewModelScope.launch {
             val artObjectDetails = repository.getArtObjectDetails(objectNumber)
-            _detailInformation.value = artObjectDetails
+            _detailInformation.value = Event(artObjectDetails)
         }
     }
 }

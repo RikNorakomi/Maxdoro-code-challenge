@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.rikvanvelzen.md_test.Injection
 import com.rikvanvelzen.md_test.databinding.DetailFragmentBinding
 import com.rikvanvelzen.md_test.model.ArtObjectDetails
+import com.rikvanvelzen.md_test.ui.EventObserver
 import com.rikvanvelzen.md_test.ui.RijksCollectionViewModel
 import com.rikvanvelzen.md_test.ui.overview.ArtObjectViewHolder.Companion.OBJECT_NUMBER
 
@@ -34,7 +35,7 @@ class DetailFragment : Fragment() {
             viewModel.loadDetailedInformation(objectNumber)
         }
 
-        viewModel.detailInformation.observe(viewLifecycleOwner, { artObject ->
+        viewModel.detailInformation.observe(viewLifecycleOwner, EventObserver { artObject ->
             setDetailedInformationOnUi(artObject)
         })
 

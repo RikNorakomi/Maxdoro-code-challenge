@@ -12,16 +12,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-// TODO Impl returning different result for error handling
-sealed class Result<out R> {
-    data class Success<out T>(val data: T) : Result<T>()
-    data class Error(val exception: Exception) : Result<Nothing>()
-}
-
 class RijksMuseumRepository(private val service: RijksMuseumService,
-                            private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) {
+                            private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) :
+    IRijksMuseumRepository {
 
-    fun getArtObjectsSearchResultStream(query: String): Flow<PagingData<ArtObject>> {
+    override fun getArtObjectsSearchResultStream(query: String): Flow<PagingData<ArtObject>> {
         Log.d("RijksMuseumRepository", "New query: $query")
         return Pager(
             config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
@@ -30,14 +25,14 @@ class RijksMuseumRepository(private val service: RijksMuseumService,
     }
 
     // suspend function enforces the function to be called from a coroutine
-    suspend fun getArtObjectDetails(objectNumber: String): ArtObjectDetails {
+    override suspend fun getArtObjectDetails(objectNumber: String): Result<ArtObjectDetails> {
 
         // Moving the execution of the coroutine to be dispatch to an
         // IO thread makes the function main-safe
         // Additionally: as best practice don't hard code dispatchers but inject them via constructor
         return withContext(ioDispatcher) {
             // TODO error handling
-            service.fetchCollectionDetails(objectNumber).artObjectDetails
+            Result.Success(service.fetchCollectionDetails(objectNumber).artObjectDetails)
         }
     }
 

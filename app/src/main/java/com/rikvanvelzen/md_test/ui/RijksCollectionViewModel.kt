@@ -5,20 +5,21 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
-import com.rikvanvelzen.md_test.data.RijksMuseumRepository
+import com.rikvanvelzen.md_test.data.IRijksMuseumRepository
+import com.rikvanvelzen.md_test.data.Result
 import com.rikvanvelzen.md_test.model.ArtObject
 import com.rikvanvelzen.md_test.model.ArtObjectDetails
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class RijksCollectionViewModel(private val repository: RijksMuseumRepository) : ViewModel() {
+class RijksCollectionViewModel(private val repository: IRijksMuseumRepository) : ViewModel() {
 
     private var currentQueryValue: String? = null
     private var currentSearchResult: Flow<PagingData<UiModel>>? = null
 
-    private val _detailInformation: MutableLiveData<Event<ArtObjectDetails>> = MutableLiveData<Event<ArtObjectDetails>>()
-    val detailInformation: LiveData<Event<ArtObjectDetails>> = _detailInformation
+    private val _detailInformation: MutableLiveData<Event<Result<ArtObjectDetails>>> = MutableLiveData<Event<Result<ArtObjectDetails>>>()
+    val detailInformation: LiveData<Event<Result<ArtObjectDetails>>> = _detailInformation
 
     fun getListData(queryString: String): Flow<PagingData<UiModel>> {
         val lastResult = currentSearchResult
@@ -59,11 +60,9 @@ class RijksCollectionViewModel(private val repository: RijksMuseumRepository) : 
         return newResult
     }
 
-    fun loadDetailedInformation(objectNumber: String) {
-        viewModelScope.launch {
+    fun loadDetailedInformation(objectNumber: String) = viewModelScope.launch {
             val artObjectDetails = repository.getArtObjectDetails(objectNumber)
             _detailInformation.value = Event(artObjectDetails)
-        }
     }
 }
 

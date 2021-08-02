@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.rikvanvelzen.md_test.Injection
+import com.rikvanvelzen.md_test.data.Result
 import com.rikvanvelzen.md_test.databinding.DetailFragmentBinding
 import com.rikvanvelzen.md_test.model.ArtObjectDetails
 import com.rikvanvelzen.md_test.ui.EventObserver
@@ -35,11 +36,15 @@ class DetailFragment : Fragment() {
             viewModel.loadDetailedInformation(objectNumber)
         }
 
-        viewModel.detailInformation.observe(viewLifecycleOwner, EventObserver { artObject ->
-            setDetailedInformationOnUi(artObject)
-        })
+        viewModel.detailInformation.observe(viewLifecycleOwner, EventObserver { artObjectResult ->
 
-        // TODO add loading indicator for when api not finished loading
+            // TODO add loading indicator for when api not finished loading
+            if (artObjectResult is Result.Success){
+                setDetailedInformationOnUi(artObjectResult.data)
+            } else {
+                // todo handle error scenario
+            }
+        })
     }
 
     override fun onCreateView(

@@ -9,22 +9,22 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import com.rikvanvelzen.md_test.Injection
 import com.rikvanvelzen.md_test.databinding.MainFragmentBinding
 import com.rikvanvelzen.md_test.ui.RijksCollectionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class OverviewFragment : Fragment() {
 
     private lateinit var binding: MainFragmentBinding
+    private val viewModel: RijksCollectionViewModel by viewModels()
 
-    //    private val viewModel: RijksCollectionViewModel by viewModels()
-    private lateinit var viewModel: RijksCollectionViewModel
     private val adapter = ResultsAdapter()
     private var dataFetchJob: Job? = null
 
@@ -39,11 +39,10 @@ class OverviewFragment : Fragment() {
 
     override fun onViewCreated(@NonNull view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // get the view model
-        viewModel = ViewModelProvider(this, Injection.provideViewModelFactory())
-            .get(RijksCollectionViewModel::class.java)
-
         initAdapter()
+
+        // For the sake of this coding challenges I've hard-coded the query here
+        // Which is usually ofc a no-no
         initDataFetch("Rembrandt van Rijn")
     }
 

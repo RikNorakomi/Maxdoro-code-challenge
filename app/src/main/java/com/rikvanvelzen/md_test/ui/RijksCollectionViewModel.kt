@@ -5,20 +5,26 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
-import com.rikvanvelzen.md_test.data.IRijksMuseumRepository
 import com.rikvanvelzen.md_test.data.Result
+import com.rikvanvelzen.md_test.data.RijksMuseumRepository
 import com.rikvanvelzen.md_test.model.ArtObject
 import com.rikvanvelzen.md_test.model.ArtObjectDetails
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RijksCollectionViewModel(private val repository: IRijksMuseumRepository) : ViewModel() {
+@HiltViewModel
+class RijksCollectionViewModel @Inject constructor(
+    private val repository: RijksMuseumRepository
+) : ViewModel() {
 
     private var currentQueryValue: String? = null
     private var currentSearchResult: Flow<PagingData<UiModel>>? = null
 
-    private val _detailInformation: MutableLiveData<Event<Result<ArtObjectDetails>>> = MutableLiveData<Event<Result<ArtObjectDetails>>>()
+    private val _detailInformation: MutableLiveData<Event<Result<ArtObjectDetails>>> =
+        MutableLiveData<Event<Result<ArtObjectDetails>>>()
     val detailInformation: LiveData<Event<Result<ArtObjectDetails>>> = _detailInformation
 
     fun getListData(queryString: String): Flow<PagingData<UiModel>> {
@@ -47,7 +53,8 @@ class RijksCollectionViewModel(private val repository: IRijksMuseumRepository) :
                             if (after.titleCount >= 1) {
                                 UiModel.SeparatorItem("${after.titleCount} letters in title")
                             } else {
-                                UiModel.SeparatorItem("< 10.000+ stars")
+                                UiModel.SeparatorItem("No title available")
+//                                UiModel.SeparatorItem(context.getString(R.string.overview_header_no_title_available))
                             }
                         } else {
                             // no separator
@@ -61,8 +68,8 @@ class RijksCollectionViewModel(private val repository: IRijksMuseumRepository) :
     }
 
     fun loadDetailedInformation(objectNumber: String) = viewModelScope.launch {
-            val artObjectDetails = repository.getArtObjectDetails(objectNumber)
-            _detailInformation.value = Event(artObjectDetails)
+        val artObjectDetails = repository.getArtObjectDetails(objectNumber)
+        _detailInformation.value = Event(artObjectDetails)
     }
 }
 

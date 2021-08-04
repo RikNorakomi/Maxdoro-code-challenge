@@ -3,6 +3,7 @@
     package="com.rikvanvelzen.md_test">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:name=".CodeChallengeApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

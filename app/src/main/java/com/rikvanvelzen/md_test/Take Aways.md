@@ -25,3 +25,13 @@ This way the tests become deterministic (meaning always return the same results)
 - TODO MutableStateFlow?!
 - TODO: Exception Handling
 - TODO: Ui State Handling
+
+Testing Coroutines:
+- When testing coroutines use TestCoroutineDispatcher. viewModelsScope f.e. uses Dispatchers.Main which uses Looper.getMainLooper().. an execution loop for real applications
+which can't be accessed if you want to run non instrumentation (e..g unit tests)
+  
+
+Dependency Injection
+- https://dagger.dev/hilt/view-model.html
+- https://developer.android.com/codelabs/android-hilt#4
+- https://developer.android.com/training/dependency-injection/hilt-android

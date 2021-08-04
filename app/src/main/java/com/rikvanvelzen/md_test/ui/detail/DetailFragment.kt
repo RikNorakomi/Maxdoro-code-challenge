@@ -27,7 +27,6 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(@NonNull view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         arguments?.let { it ->
             objectNumber = it.getString(OBJECT_NUMBER).toString()
             viewModel.loadDetailedInformation(objectNumber)

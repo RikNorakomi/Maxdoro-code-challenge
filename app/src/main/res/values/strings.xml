@@ -3,4 +3,7 @@
     <string name="detail_page_title">Details for {objectNumber}</string>
     <string name="retry">Retry</string>
     <string name="no_results">No results</string>
+
+    <string name="overview_header_no_title_available">No title available</string>
+    <string name="overview_header_x_letters_in_title">%1$s letters in title</string>
 </resources>

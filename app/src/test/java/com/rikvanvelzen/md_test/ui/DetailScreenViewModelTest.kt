@@ -12,7 +12,6 @@ import com.rikvanvelzen.md_test.ui.detail.DetailScreenViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
@@ -37,7 +36,7 @@ class DetailScreenViewModelTest {
     }
 
     @Test
-    fun loadDetailedInformation_success_detailInfoLiveDataUpdated() = runBlockingTest {
+    fun loadDetailedInformation_success_detailInfoLiveDataUpdated() {
         // Arrange / Given
         val objectNumber = "someId"
         val artObjectDetails = createArtObjectDetails(objectNumber)
@@ -62,7 +61,6 @@ class DetailScreenViewModelTest {
 
         // When detail information gets loaded
         viewModel.loadDetailedInformation(objectNumber)
-
 
         // assert that detailInformation LiveData is updated with correct info
         val value = viewModel.detailInformation.getOrAwaitValue()

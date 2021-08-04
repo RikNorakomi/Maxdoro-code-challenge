@@ -12,11 +12,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-class RijksMuseumRepository(private val service: RijksMuseumService,
-                            private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) :
-    IRijksMuseumRepository {
+class RijksMuseumRepository(
+    private val service: RijksMuseumService,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
 
-    override fun getArtObjectsSearchResultStream(query: String): Flow<PagingData<ArtObject>> {
+    fun getArtObjectsSearchResultStream(query: String): Flow<PagingData<ArtObject>> {
         Log.d("RijksMuseumRepository", "New query: $query")
         return Pager(
             config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
@@ -25,7 +26,7 @@ class RijksMuseumRepository(private val service: RijksMuseumService,
     }
 
     // suspend function enforces the function to be called from a coroutine
-    override suspend fun getArtObjectDetails(objectNumber: String): Result<ArtObjectDetails> {
+    suspend fun getArtObjectDetails(objectNumber: String): Result<ArtObjectDetails> {
 
         // Moving the execution of the coroutine to be dispatch to an
         // IO thread makes the function main-safe

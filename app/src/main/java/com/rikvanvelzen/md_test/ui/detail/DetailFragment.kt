@@ -14,14 +14,14 @@ import com.rikvanvelzen.md_test.data.Result
 import com.rikvanvelzen.md_test.databinding.DetailFragmentBinding
 import com.rikvanvelzen.md_test.model.ArtObjectDetails
 import com.rikvanvelzen.md_test.ui.EventObserver
-import com.rikvanvelzen.md_test.ui.RijksCollectionViewModel
+import com.rikvanvelzen.md_test.ui.OverviewScreenViewModel
 import com.rikvanvelzen.md_test.ui.overview.ArtObjectViewHolder.Companion.OBJECT_NUMBER
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
 
-    private val viewModel: RijksCollectionViewModel by viewModels()
+    private val viewModel: DetailScreenViewModel by viewModels()
     private lateinit var objectNumber: String
     private lateinit var binding: DetailFragmentBinding
 

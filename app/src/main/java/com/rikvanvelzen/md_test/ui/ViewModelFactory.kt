@@ -26,9 +26,9 @@ import com.rikvanvelzen.md_test.data.RijksMuseumRepository
 class ViewModelFactory(private val repository: RijksMuseumRepository) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RijksCollectionViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(OverviewScreenViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return RijksCollectionViewModel(repository) as T
+            return OverviewScreenViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

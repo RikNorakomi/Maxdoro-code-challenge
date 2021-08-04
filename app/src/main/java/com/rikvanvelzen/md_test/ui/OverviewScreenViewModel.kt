@@ -5,27 +5,20 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
-import com.rikvanvelzen.md_test.data.Result
 import com.rikvanvelzen.md_test.data.RijksMuseumRepository
 import com.rikvanvelzen.md_test.model.ArtObject
-import com.rikvanvelzen.md_test.model.ArtObjectDetails
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RijksCollectionViewModel @Inject constructor(
+class OverviewScreenViewModel @Inject constructor(
     private val repository: RijksMuseumRepository
 ) : ViewModel() {
 
     private var currentQueryValue: String? = null
     private var currentSearchResult: Flow<PagingData<UiModel>>? = null
-
-    private val _detailInformation: MutableLiveData<Event<Result<ArtObjectDetails>>> =
-        MutableLiveData<Event<Result<ArtObjectDetails>>>()
-    val detailInformation: LiveData<Event<Result<ArtObjectDetails>>> = _detailInformation
 
     fun getListData(queryString: String): Flow<PagingData<UiModel>> {
         val lastResult = currentSearchResult
@@ -65,11 +58,6 @@ class RijksCollectionViewModel @Inject constructor(
                 .cachedIn(viewModelScope)
         currentSearchResult = newResult
         return newResult
-    }
-
-    fun loadDetailedInformation(objectNumber: String) = viewModelScope.launch {
-        val artObjectDetails = repository.getArtObjectDetails(objectNumber)
-        _detailInformation.value = Event(artObjectDetails)
     }
 }
 

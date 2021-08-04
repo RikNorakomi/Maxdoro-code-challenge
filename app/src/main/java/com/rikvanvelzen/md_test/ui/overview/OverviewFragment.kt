@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.rikvanvelzen.md_test.databinding.MainFragmentBinding
-import com.rikvanvelzen.md_test.ui.RijksCollectionViewModel
+import com.rikvanvelzen.md_test.ui.OverviewScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 class OverviewFragment : Fragment() {
 
     private lateinit var binding: MainFragmentBinding
-    private val viewModel: RijksCollectionViewModel by viewModels()
+    private val viewModel: OverviewScreenViewModel by viewModels()
 
     private val adapter = ResultsAdapter()
     private var dataFetchJob: Job? = null

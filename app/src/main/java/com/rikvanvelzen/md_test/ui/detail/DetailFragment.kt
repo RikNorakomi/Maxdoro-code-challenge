@@ -12,9 +12,8 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.rikvanvelzen.md_test.data.Result
 import com.rikvanvelzen.md_test.databinding.DetailFragmentBinding
-import com.rikvanvelzen.md_test.model.ArtObjectDetails
+import com.rikvanvelzen.md_test.data.model.ArtObjectDetails
 import com.rikvanvelzen.md_test.ui.EventObserver
-import com.rikvanvelzen.md_test.ui.OverviewScreenViewModel
 import com.rikvanvelzen.md_test.ui.overview.ArtObjectViewHolder.Companion.OBJECT_NUMBER
 import dagger.hilt.android.AndroidEntryPoint
 

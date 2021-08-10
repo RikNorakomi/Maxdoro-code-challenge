@@ -1,4 +1,4 @@
-package com.rikvanvelzen.md_test.ui
+package com.rikvanvelzen.md_test.utils
 
 import android.content.Context
 import androidx.annotation.StringRes

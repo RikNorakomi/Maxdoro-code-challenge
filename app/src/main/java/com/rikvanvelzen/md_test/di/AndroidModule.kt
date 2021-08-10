@@ -1,7 +1,7 @@
 package com.rikvanvelzen.md_test.di
 
 import android.content.Context
-import com.rikvanvelzen.md_test.ui.ResourceProvider
+import com.rikvanvelzen.md_test.utils.ResourceProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.rikvanvelzen.md_test.ui
+package com.rikvanvelzen.md_test.ui.overview
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rikvanvelzen.md_test.R
 
 class SeparatorViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
     private val description: TextView = view.findViewById(R.id.separator_description)
 
     fun bind(separatorText: String) {
@@ -22,3 +23,4 @@ class SeparatorViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 }
+

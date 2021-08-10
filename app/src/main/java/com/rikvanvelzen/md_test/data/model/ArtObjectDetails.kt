@@ -1,4 +1,4 @@
-package com.rikvanvelzen.md_test.model
+package com.rikvanvelzen.md_test.data.model
 
 import com.google.gson.annotations.SerializedName
 

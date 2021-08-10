@@ -1,4 +1,4 @@
-package com.rikvanvelzen.md_test.api
+package com.rikvanvelzen.md_test.data.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

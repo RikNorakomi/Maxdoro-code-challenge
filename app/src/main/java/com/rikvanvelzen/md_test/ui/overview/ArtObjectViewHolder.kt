@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.rikvanvelzen.md_test.R
-import com.rikvanvelzen.md_test.model.ArtObject
+import com.rikvanvelzen.md_test.data.model.ArtObject
 
 class ArtObjectViewHolder(
     private val view: View,

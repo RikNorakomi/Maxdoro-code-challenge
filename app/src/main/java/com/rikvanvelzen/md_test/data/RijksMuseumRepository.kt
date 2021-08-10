@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.rikvanvelzen.md_test.api.RijksMuseumService
-import com.rikvanvelzen.md_test.model.ArtObject
-import com.rikvanvelzen.md_test.model.ArtObjectDetails
+import com.rikvanvelzen.md_test.data.api.RijksMuseumService
+import com.rikvanvelzen.md_test.data.model.ArtObject
+import com.rikvanvelzen.md_test.data.model.ArtObjectDetails
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

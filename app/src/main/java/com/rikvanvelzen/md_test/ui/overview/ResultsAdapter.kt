@@ -5,7 +5,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rikvanvelzen.md_test.R
-import com.rikvanvelzen.md_test.ui.SeparatorViewHolder
 import com.rikvanvelzen.md_test.ui.UiModel
 
 class ResultsAdapter : PagingDataAdapter<UiModel, RecyclerView.ViewHolder>(UIMODEL_COMPARATOR) {

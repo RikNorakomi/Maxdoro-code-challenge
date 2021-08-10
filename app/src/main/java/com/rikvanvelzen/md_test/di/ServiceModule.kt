@@ -1,6 +1,6 @@
 package com.rikvanvelzen.md_test.di
 
-import com.rikvanvelzen.md_test.api.RijksMuseumService
+import com.rikvanvelzen.md_test.data.api.RijksMuseumService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

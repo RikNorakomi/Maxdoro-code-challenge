@@ -2,9 +2,9 @@ package com.rikvanvelzen.md_test.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.rikvanvelzen.md_test.api.RijksMuseumService
+import com.rikvanvelzen.md_test.data.api.RijksMuseumService
 import com.rikvanvelzen.md_test.data.RijksMuseumRepository.Companion.NETWORK_PAGE_SIZE
-import com.rikvanvelzen.md_test.model.ArtObject
+import com.rikvanvelzen.md_test.data.model.ArtObject
 import retrofit2.HttpException
 import java.io.IOException
 

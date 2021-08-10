@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.rikvanvelzen.md_test.data
+package com.rikvanvelzen.md_test.utils
 
 
 /**

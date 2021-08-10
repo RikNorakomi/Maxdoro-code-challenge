@@ -7,7 +7,8 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.rikvanvelzen.md_test.R
 import com.rikvanvelzen.md_test.data.RijksMuseumRepository
-import com.rikvanvelzen.md_test.model.ArtObject
+import com.rikvanvelzen.md_test.data.model.ArtObject
+import com.rikvanvelzen.md_test.utils.ResourceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -5,9 +5,9 @@ import com.rikvanvelzen.md_test.common.MainCoroutineRule
 import com.rikvanvelzen.md_test.common.getOrAwaitValue
 import com.rikvanvelzen.md_test.data.Result
 import com.rikvanvelzen.md_test.data.RijksMuseumRepository
-import com.rikvanvelzen.md_test.model.ArtObjectDetails
-import com.rikvanvelzen.md_test.model.Dating
-import com.rikvanvelzen.md_test.model.ImageDetails
+import com.rikvanvelzen.md_test.data.model.ArtObjectDetails
+import com.rikvanvelzen.md_test.data.model.Dating
+import com.rikvanvelzen.md_test.data.model.ImageDetails
 import com.rikvanvelzen.md_test.ui.detail.DetailScreenViewModel
 import io.mockk.coEvery
 import io.mockk.mockk

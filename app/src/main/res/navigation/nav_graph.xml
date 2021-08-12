@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/overviewFragment"
-        android:name="com.rikvanvelzen.md_test.ui.overview.OverviewFragment"
+        android:name="com.rikvanvelzen.coding_challenge.ui.overview.OverviewFragment"
         android:label="@string/app_name"
         tools:layout="@layout/main_fragment">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.rikvanvelzen.md_test.ui.detail.DetailFragment"
+        android:name="com.rikvanvelzen.coding_challenge.ui.detail.DetailFragment"
         android:label="@string/detail_page_title"
         tools:layout="@layout/detail_fragment">
         <argument

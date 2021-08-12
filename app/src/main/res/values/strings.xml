@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Maxdoro coding challenge</string>
+    <string name="app_name">Coding challenge</string>
     <string name="detail_page_title">Details for {objectNumber}</string>
     <string name="retry">Retry</string>
     <string name="no_results">No results</string>

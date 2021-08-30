@@ -50,7 +50,7 @@ class DetailScreenViewModelTest {
 
         // assert that detailInformation LiveData is updated with correct info
         val value = viewModel.detailInformation.getOrAwaitValue()
-        assertThat(value.getContentIfNotHandled(), `is`(Result.Success(artObjectDetails)))
+        assertThat(value, `is`(Result.Success(artObjectDetails)))
     }
 
     @Test
@@ -64,7 +64,7 @@ class DetailScreenViewModelTest {
 
         // assert that detailInformation LiveData is updated with correct info
         val value = viewModel.detailInformation.getOrAwaitValue()
-        assertThat(value.getContentIfNotHandled() is Result.Error, `is`(true))
+        assertThat(value is Result.Error, `is`(true))
     }
 
     private fun createArtObjectDetails(objectNumber: String): ArtObjectDetails {

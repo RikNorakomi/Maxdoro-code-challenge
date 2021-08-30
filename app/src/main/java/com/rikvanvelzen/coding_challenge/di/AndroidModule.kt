@@ -1,7 +1,6 @@
 package com.rikvanvelzen.coding_challenge.di
 
 import android.content.Context
-import com.rikvanvelzen.coding_challenge.utils.ResourceProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

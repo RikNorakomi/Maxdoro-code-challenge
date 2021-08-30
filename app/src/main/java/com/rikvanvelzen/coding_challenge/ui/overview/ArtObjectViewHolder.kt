@@ -17,6 +17,7 @@ class ArtObjectViewHolder(
     private val view: View,
     private val circularProgressDrawable: CircularProgressDrawable
 ) : RecyclerView.ViewHolder(view) {
+
     private val image: ImageView = view.findViewById(R.id.image)
     private val objectNumber: TextView = view.findViewById(R.id.objectNumber)
     private val title: TextView = view.findViewById(R.id.title)
@@ -36,28 +37,19 @@ class ArtObjectViewHolder(
     }
 
     fun bind(artObject: ArtObject?) {
-        if (artObject == null) {
-            // Loading indication could go here
-            // But for the sake of the time constraints of the coding challenge
-            // I have only added a circular progress indicator on the ImageView
-        } else {
-            showArtObjectCard(artObject)
+        artObject?.let {
+            this.artObject = artObject
+
+            author.text = artObject.author
+            title.text = artObject.title
+            objectNumber.text = artObject.objectNumber
+
+            Glide.with(view.context)
+                .load(artObject.imageDetail.url)
+                .centerCrop()
+                .placeholder(circularProgressDrawable)
+                .into(image)
         }
-    }
-
-    private fun showArtObjectCard(artObject: ArtObject) {
-        this.artObject = artObject
-
-        author.text = artObject.author
-        title.text = artObject.title
-        objectNumber.text = artObject.objectNumber
-
-        Glide.with(view.context)
-            .load(artObject.imageDetail.url)
-            .centerCrop()
-            .placeholder(circularProgressDrawable)
-            .into(image)
-
     }
 
     companion object {

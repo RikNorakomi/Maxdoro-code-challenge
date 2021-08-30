@@ -1,20 +1,21 @@
 package com.rikvanvelzen.coding_challenge.ui.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.rikvanvelzen.coding_challenge.R
 import com.rikvanvelzen.coding_challenge.databinding.DetailFragmentBinding
 import com.rikvanvelzen.coding_challenge.model.ArtObjectDetails
-import com.rikvanvelzen.coding_challenge.utils.EventObserver
 import com.rikvanvelzen.coding_challenge.ui.overview.ArtObjectViewHolder.Companion.OBJECT_NUMBER
-import com.rikvanvelzen.coding_challenge.utils.Result
 import com.rikvanvelzen.coding_challenge.utils.Result.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,19 +26,23 @@ class DetailFragment : Fragment() {
     private lateinit var objectNumber: String
     private lateinit var binding: DetailFragmentBinding
 
+    @SuppressLint("ShowToast")
     override fun onViewCreated(@NonNull view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let { it ->
             objectNumber = it.getString(OBJECT_NUMBER).toString()
             viewModel.loadDetailedInformation(objectNumber)
         }
-
-        viewModel.detailInformation.observe(viewLifecycleOwner, EventObserver { artObjectResult ->
-
-            when (artObjectResult){
-                is Success -> setDetailedInformationOnUi(artObjectResult.data)
+        viewModel.detailInformation.observe(viewLifecycleOwner, { result ->
+            when (result) {
+                is Success -> setDetailedInformationOnUi(result.data)
                 is Error -> {
                     // inform user of error
+                    Toast.makeText(
+                        context,
+                        getString(R.string.detail_page_error_msg, result.exception),
+                        Toast.LENGTH_LONG
+                    )
                 }
                 is Loading -> {
                     // show loading indication

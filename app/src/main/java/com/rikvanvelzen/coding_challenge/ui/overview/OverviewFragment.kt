@@ -15,9 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.rikvanvelzen.coding_challenge.databinding.MainFragmentBinding
-import com.rikvanvelzen.coding_challenge.ui.OverviewScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -28,7 +26,6 @@ class OverviewFragment : Fragment() {
     private val viewModel: OverviewScreenViewModel by viewModels()
 
     private val adapter = ResultsAdapter()
-    private var dataFetchJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,13 +44,10 @@ class OverviewFragment : Fragment() {
 
 
     private fun initDataFetch() {
-        // Make sure we cancel the previous job before creating a new one
-        dataFetchJob?.cancel()
-        dataFetchJob = lifecycleScope.launch {
 
-            // For the sake of this coding challenges I've hard-coded the query here
-            // Which is usually ofc a no-no
-            viewModel.getListData("Rembrandt van Rijn").collectLatest {
+        lifecycleScope.launch {
+
+            viewModel.getListData().collectLatest {
                 adapter.submitData(it)
             }
         }

@@ -5,7 +5,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rikvanvelzen.coding_challenge.R
-import com.rikvanvelzen.coding_challenge.ui.UiModel
 
 class ResultsAdapter : PagingDataAdapter<UiModel, RecyclerView.ViewHolder>(UI_MODEL_COMPARATOR) {
 
@@ -30,7 +29,8 @@ class ResultsAdapter : PagingDataAdapter<UiModel, RecyclerView.ViewHolder>(UI_MO
         uiModel.let {
             when (uiModel) {
                 is UiModel.ArtObjectItem -> (holder as ArtObjectViewHolder).bind(uiModel.artObject)
-                is UiModel.SeparatorItem -> (holder as SeparatorViewHolder).bind(uiModel.description)
+                is UiModel.SeparatorItem -> (holder as SeparatorViewHolder)
+                    .bind(holder.itemView.context.getString(uiModel.descriptionResId, uiModel.numberOfItems))
                 else -> throw UnsupportedOperationException("Unknown view")
             }
         }
@@ -42,7 +42,7 @@ class ResultsAdapter : PagingDataAdapter<UiModel, RecyclerView.ViewHolder>(UI_MO
                 return (oldItem is UiModel.ArtObjectItem && newItem is UiModel.ArtObjectItem &&
                         oldItem.artObject.objectNumber == newItem.artObject.objectNumber) ||
                         (oldItem is UiModel.SeparatorItem && newItem is UiModel.SeparatorItem &&
-                                oldItem.description == newItem.description)
+                                oldItem.descriptionResId == newItem.descriptionResId)
             }
 
             override fun areContentsTheSame(oldItem: UiModel, newItem: UiModel): Boolean =

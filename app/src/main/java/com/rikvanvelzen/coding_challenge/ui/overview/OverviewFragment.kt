@@ -3,6 +3,8 @@ package com.rikvanvelzen.coding_challenge.ui.overview
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.NonNull
@@ -40,19 +42,18 @@ class OverviewFragment : Fragment() {
     override fun onViewCreated(@NonNull view: View, @Nullable savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
-
-        // For the sake of this coding challenges I've hard-coded the query here
-        // Which is usually ofc a no-no
-        initDataFetch("Rembrandt van Rijn")
+        initDataFetch()
     }
 
 
-    private fun initDataFetch(query: String) {
+    private fun initDataFetch() {
         // Make sure we cancel the previous job before creating a new one
         dataFetchJob?.cancel()
         dataFetchJob = lifecycleScope.launch {
 
-            viewModel.getListData(query).collectLatest {
+            // For the sake of this coding challenges I've hard-coded the query here
+            // Which is usually ofc a no-no
+            viewModel.getListData("Rembrandt van Rijn").collectLatest {
                 adapter.submitData(it)
             }
         }
@@ -75,7 +76,6 @@ class OverviewFragment : Fragment() {
             // Show the retry state if initial load or refresh fails.
             binding.retryButton.isVisible = loadState.source.refresh is LoadState.Error
 
-            // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
             val errorState = loadState.source.append as? LoadState.Error
                 ?: loadState.source.prepend as? LoadState.Error
                 ?: loadState.append as? LoadState.Error
@@ -91,12 +91,7 @@ class OverviewFragment : Fragment() {
     }
 
     private fun showEmptyList(show: Boolean) {
-        if (show) {
-            binding.emptyList.visibility = View.VISIBLE
-            binding.list.visibility = View.GONE
-        } else {
-            binding.emptyList.visibility = View.GONE
-            binding.list.visibility = View.VISIBLE
-        }
+        binding.emptyList.visibility = if (show) VISIBLE else GONE
+        binding.list.visibility = if (show) GONE else VISIBLE
     }
 }

@@ -23,6 +23,10 @@ class OverviewScreenViewModel @Inject constructor(
     private var currentQueryValue: String? = null
     private var currentSearchResult: Flow<PagingData<UiModel>>? = null
 
+    init {
+
+    }
+
     fun getListData(queryString: String): Flow<PagingData<UiModel>> {
         val lastResult = currentSearchResult
         if (queryString == currentQueryValue && lastResult != null) {

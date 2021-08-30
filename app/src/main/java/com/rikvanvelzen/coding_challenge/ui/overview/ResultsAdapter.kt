@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rikvanvelzen.coding_challenge.R
 import com.rikvanvelzen.coding_challenge.ui.UiModel
 
-class ResultsAdapter : PagingDataAdapter<UiModel, RecyclerView.ViewHolder>(UIMODEL_COMPARATOR) {
+class ResultsAdapter : PagingDataAdapter<UiModel, RecyclerView.ViewHolder>(UI_MODEL_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == R.layout.art_object_view_item) {
@@ -21,7 +21,7 @@ class ResultsAdapter : PagingDataAdapter<UiModel, RecyclerView.ViewHolder>(UIMOD
         return when (getItem(position)) {
             is UiModel.ArtObjectItem -> R.layout.art_object_view_item
             is UiModel.SeparatorItem -> R.layout.separator_view_item
-            null -> throw UnsupportedOperationException("Unknown view")
+            else -> throw UnsupportedOperationException("Unknown view")
         }
     }
 
@@ -31,12 +31,13 @@ class ResultsAdapter : PagingDataAdapter<UiModel, RecyclerView.ViewHolder>(UIMOD
             when (uiModel) {
                 is UiModel.ArtObjectItem -> (holder as ArtObjectViewHolder).bind(uiModel.artObject)
                 is UiModel.SeparatorItem -> (holder as SeparatorViewHolder).bind(uiModel.description)
+                else -> throw UnsupportedOperationException("Unknown view")
             }
         }
     }
 
     companion object {
-        private val UIMODEL_COMPARATOR = object : DiffUtil.ItemCallback<UiModel>() {
+        private val UI_MODEL_COMPARATOR = object : DiffUtil.ItemCallback<UiModel>() {
             override fun areItemsTheSame(oldItem: UiModel, newItem: UiModel): Boolean {
                 return (oldItem is UiModel.ArtObjectItem && newItem is UiModel.ArtObjectItem &&
                         oldItem.artObject.objectNumber == newItem.artObject.objectNumber) ||

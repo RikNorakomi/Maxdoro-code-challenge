@@ -1,5 +1,6 @@
 package com.rikvanvelzen.coding_challenge.data.api
 
+import com.rikvanvelzen.coding_challenge.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -30,7 +31,7 @@ interface RijksMuseumService {
 
     companion object {
         private const val BASE_URL = "https://www.rijksmuseum.nl/api/en/"
-        private const val API_KEY = "0fiuZFh4"
+        private const val API_KEY = BuildConfig.RIJKS_MUSEUM_API_KEY
         private const val DEFAULT_RESULT_PER_PAGE = 10
 
         fun create(): RijksMuseumService {
